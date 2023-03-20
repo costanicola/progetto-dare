@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard Darsena Page
+{% endblock %}
+
+{% block file %}
+<script src="{{ url_for('static', filename='js/darsena-charts.js') }}"></script>
+{% endblock %}
+
+{% block main %}
+<div class="row m-0 justify-content-center">
+    <div class="col-12 p-0">
+        <p class="upper-advisor m-0 py-2 px-3 text-center">
+            I dati utilizzati dai grafici fanno riferimento ai documenti analizzati e salvati nell'<a class="link-dark" href="{{ url_for('archive_page') }}">archivio</a>.
+        </p>
+    </div>
+    <div class="col-11 p-0">
+        <div class="row">
+            <div class="col-12 col-lg-4 mt-4 mt-lg-5">
+                <div class="graph-area border shadow-sm text-center">
+                    <div class="row">
+                        <p class="m-0 pt-2 fw-bold">Mood generale documenti</p>
+                    </div>
+                    <div class="row my-4">
+                        <div class="col-12" id="darsena_piechart_legend"></div>
+
+                        <div class="col-12" data="{{ darsena_piechart_data }}" id="darsena_piechart"></div>
+
+                        <div class="no-data-display fst-italic text-secondary">
+                            Ancora nessun dato da visualizzare...
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-8 mt-4 mt-lg-5">
+                <div class="graph-area border shadow-sm text-center">
+                    <div class="row">
+                        <p class="m-0 px-4 pt-2 fw-bold">Andamento del Mood nel tempo</p>
+                    </div>
+                    <div class="row my-4">
+                        <div class="col-12" id="darsena_linechart_legend"></div>
+
+                        <div class="col-12" data="{{ darsena_linechart_data }}" id="darsena_linechart"></div>
+
+                        <div class="no-data-display fst-italic text-secondary">
+                            Ancora nessun dato da visualizzare...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

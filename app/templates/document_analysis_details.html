@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+
+{% block title %}
+Analysis Details Page
+{% endblock %}
+
+{% block main %}
+<div class="modal fade" id="document_update_modal" tabindex="-1" aria-labelledby="document_update_title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border">
+            <div class="row justify-content-center">
+                <div class="col-10 p-0">
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <p class="fw-bold m-0 fs-5" id="document_update_title">Modifica parametri analisi</p>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-6 d-flex align-items-center">
+                                    <label for="document_sentiment_selector" class="form-label m-0">Sentiment Analysis:</label>
+                                </div>
+                                <div class="col-6">
+                                    <select name="document_sentiment_selector" id="document_sentiment_selector" class="form-select text-uppercase">
+                                        <option value="positivo" {% if document_info.sentiment == "positivo" %} selected {% endif %}>positivo</option>
+                                        <option value="neutrale" {% if document_info.sentiment == "neutrale" %} selected {% endif %}>neutrale</option>
+                                        <option value="negativo" {% if document_info.sentiment == "negativo" %} selected {% endif %}>negativo</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if document_info.emotion %}
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-6 d-flex align-items-center">
+                                    <label for="document_feel_checkbox" class="form-check-label m-0">Emozione:</label>
+                                </div>
+                                <div class="col-6">
+                                    <input class="form-check-input" type="checkbox" name="document_feel_checkbox" id="document_feel_checkbox" hide="{{ document_info.emotionHide }}" {% if document_info.emotionHide == 0 %} checked {% endif %} />
+                                    <span class="ms-1">visualizza "{{ document_info.emotion }}"</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <p class="m-0 text-secondary fst-italic">In questo testo si &egrave; scelto di non rilevare emozioni... </p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="row my-4">
+                        <div class="col-12 text-end">
+                            <button type="button" class="btn btn-outline-dark me-3" data-bs-dismiss="modal">Chiudi</button>
+                            <button type="button" class="btn btn-primary" id="modify_document_sentiment_button" url="{{ url_for('modify_document_sentiment', analysis_id=document_info.analysisId) }}">Conferma e salva</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="document_delete_modal" tabindex="-1" aria-labelledby="document_delete_title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border">
+            <form class="row justify-content-center" action="{{ url_for('delete_document_sentiment', analysis_id=document_info.analysisId) }}" method="POST">
+                <div class="col-10 p-0">
+                    <div class="row mt-3">
+                        <div class="col-12 d-flex align-items-center">
+                            <span class="d-inline bi bi-exclamation-triangle"></span>
+                            <p class="d-inline fw-bold ms-2 mb-0 fs-5" id="document_delete_title">Eliminazione</p>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <p class="m-0">Confermi di voler eliminare questa analisi?</p>
+                        </div>
+                    </div>
+                    <div class="row my-4">
+                        <div class="col-12 text-end">
+                            <button type="button" class="btn btn-outline-dark me-3" data-bs-dismiss="modal">Chiudi</button>
+                            <input type="submit" class="btn btn-primary" value="S&igrave;, elimina" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center m-0">
+    <div class="col-10 p-0">
+        <div class="row gx-2 mt-3">
+            <div class="col-lg-2 ps-lg-0 mb-3">
+                <a class="btn analysis-button col-12 border shadow-sm p-0" href="{{ url_for('archive_page') }}">
+                    <span class="bi bi-arrow-left-short"></span>
+                    <span class="analysis-buttons-text ms-1">Torna indietro</span>
+                </a>
+            </div>
+            <div class="col-lg-2 offset-lg-6 mb-3">
+                <button class="analysis-button col-12 border shadow-sm p-0" data-bs-toggle="modal" data-bs-target="#document_update_modal">
+                    <span class="bi bi-gear-fill"></span>
+                    <span class="analysis-buttons-text ms-2">Modifica</span>
+                </button>
+            </div>
+            <div class="col-lg-2 pe-lg-0 mb-3">
+                <button class="analysis-button col-12 border shadow-sm p-0" data-bs-toggle="modal" data-bs-target="#document_delete_modal">
+                    <span class="bi bi-trash"></span>
+                    <span class="analysis-buttons-text ms-2">Elimina</span>
+                </button>
+            </div>
+        </div>
+        <div class="row justify-content-between gx-2 mx-1">
+            <div class="col-lg-5 order-lg-last">
+                <!--informazioni scritte-->
+                <div class="row mt-2">
+                    <div class="col-12 px-0">
+                        <div class="row mb-2">
+                            <h2 class="text-lg-start text-center">Informazioni su questa analisi</h2>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="row justify-content-between">
+                                    <div class="col align-self-center">
+                                        Sentiment Analysis
+                                    </div>
+                                    <div class="col text-end align-self-center fw-bold text-uppercase" id="document_sentiment">
+                                        {{ document_info.sentiment }}
+                                    </div>
+                                </div>
+                                {% if document_info.sentimentUpdateDate %}
+                                <div class="row">
+                                    <div class="col-12 text-end">
+                                        <span class="text-modified text-muted">
+                                            modificato in data {{ document_info.sentimentUpdateDate }}
+                                        </span>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </li>
+                            {% if not document_info.sentimentUpdateDate %}
+                            <li class="list-group-item">
+                                <div class="row justify-content-between">
+                                    <div class="col align-self-center">
+                                        Intensit&agrave; Sentiment
+                                    </div>
+                                    <div class="col text-end align-self-center">
+                                        {{ document_info.sentimentIntensity }}%
+                                    </div>
+                                </div>
+                            </li>
+                            {% endif %}
+                            {% if document_info.emotionHide == 0 %}
+                            <li class="list-group-item">
+                                <div class="row justify-content-between">
+                                    <div class="col align-self-center">
+                                        Emozione rilevata
+                                    </div>
+                                    <div class="col text-end align-self-center text-uppercase" id="document_emotion">
+                                        {{ document_info.emotion }}
+                                    </div>
+                                </div>
+                            </li>
+                            {% endif %}
+                        </ul>
+                        <ul class="list-group mt-2 list-group-flush">
+                            <li class="list-group-item">
+                                <div class="row justify-content-between">
+                                    <div class="col align-self-center">
+                                        Lingua dell'analisi
+                                    </div>
+                                    <div class="col text-end align-self-center">
+                                        {{ document_info.analysisLanguage }}
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row justify-content-between">
+                                    <div class="col align-self-center">
+                                        Responsabile caricamento
+                                    </div>
+                                    <div class="col text-end align-self-center">
+                                        {{ document_info.firstName }} {{ document_info.lastName }}
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row justify-content-between">
+                                    <div class="col align-self-center">
+                                        Data caricamento
+                                    </div>
+                                    <div class="col text-end align-self-center">
+                                        {{ document_info.analysisAddedDate }}
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--elenco parole-->
+                <div class="row mt-3 mt-lg-4 mt-2">
+                    <div class="col-12 px-0">
+                        <div class="row mb-2">
+                            <h2 class="text-lg-start text-center">Parole chiave trovate</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 px-2">
+                                <ul class="d-flex flex-wrap p-0">
+                                    {% for k in keywords_list %}
+                                    <li class="list-group-item border-0 bg-white mx-1 mb-2">
+                                        {{ k.keywordName }}
+                                    </li>
+                                    {% else %}
+                                    <li class="list-group-item border-0 bg-white mx-1 mb-2 fst-italic">Nessuna parola chiave...</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 order-lg-first mt-2">
+                <div class="row mb-2">
+                    <div class="col p-0">
+                        <h2>Testo del documento</h2>
+                    </div>
+                    <div class="col-1 p-0 text-end">
+                        <button class="copy-document border-0 p-0 bg-transparent" data-bs-toggle="tooltip" data-bs-placement="top" title="Copia negli appunti">
+                            <span class="bi bi-clipboard"></span>
+                            <span class="bi bi-clipboard-check"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <ul class="list-group p-0" id="document_text">
+                        {% for p in paragraphs_info %}
+                        <li class="list-group-item border-0">
+                            <p class="document-p m-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Sentiment : {{ p.paragraphSentiment }} Intensit&agrave; : {{ p.paragraphSentimentIntensity }}%">
+                                {{ p.content|e }}
+                            </p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

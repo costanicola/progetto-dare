@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard Keywords
+{% endblock %}
+
+{% block file %}
+<script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
+<script src="{{ url_for('static', filename='js/keywords-charts.js') }}"></script>
+{% endblock %}
+
+{% block main %}
+<div class="modal fade" id="new_keyword_modal" tabindex="-1" aria-labelledby="new_title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border">
+            <form class="row justify-content-center" action="{{ url_for('add_keyword') }}" method="POST" id="add_keyword_form">
+                <div class="col-10 p-0">
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <p class="fw-bold mb-0 fs-5" id="new_title">Inserimento nuova parola chiave</p>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-4 d-flex align-items-center">
+                                    <label for="keyword_category_selector" class="form-label m-0">Categoria:</label>
+                                </div>
+                                <div class="col-7">
+                                    <select name="keyword_category_selector" id="keyword_category_selector" class="form-select text-uppercase">
+                                        {% for cat_id, cat_name in categories_infos %}
+                                        <option value="value_cat{{ cat_id }}">{{ cat_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-4 d-flex align-items-center">
+                                    <label for="keyword_name" class="form-label m-0">Nome:</label>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text" class="form-control" id="keyword_name" name="keyword_name" placeholder="Nome parola chiave" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-4 d-flex align-items-center">
+                                    <label for="keyword_similar" class="form-label m-0">Parola simile:</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" class="form-control" id="keyword_similar" name="keyword_similar" placeholder="Nome sinonimo" />
+                                </div>
+                                <div class="col-1 p-0">
+                                    <button type="button" class="bg-transparent border-0" id="add_keyword_similar_button">
+                                        <span class="add_keyword_similar_button_icon bi bi-plus-circle"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <ul class="list-group p-0" id="similar_keywords_list">
+                            </ul>
+                            <input type="hidden" id="similar_keywords_list_hidden" name="similar_keywords" value="" />
+                        </div>
+                    </div>
+                    <div class="row my-4">
+                        <div class="col-12 text-end">
+                            <button type="button" class="btn btn-outline-dark me-3" data-bs-dismiss="modal">Chiudi</button>
+                            <input type="submit" class="btn btn-primary" value="Salva e aggiungi" id="add_new_keywords_button" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="keyword_filter_modal" tabindex="-1" aria-labelledby="filter_title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border">
+            <div class="row justify-content-center">
+                <div class="col-10 p-0">
+                    <div class="row mt-3">
+                        <div class="col-12 d-flex align-items-center">
+                            <span class="d-inline bi bi-funnel"></span>
+                            <p class="d-inline ms-2 fw-bold mb-0 fs-5" id="filter_title">Filtra per categoria</p>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <ul class="list-group p-0">
+                            {% for cat_id, cat_name in attendances_categories_infos %}
+                            <li class="list-group-item border-0">
+                                <div class="form-check form-switch m-0">
+                                    <input class="form-check-input me-2" type="checkbox" role="switch" name="switch_cat{{ cat_id }}" id="switch_cat{{ cat_id }}">
+                                    <label class="form-check-label" for="switch_cat{{ cat_id }}">{{ cat_name }}</label>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="row my-4">
+                        <div class="col-12 text-end">
+                            <button class="btn btn-outline-dark me-3" data-bs-dismiss="modal">Chiudi</button>
+                            <button class="btn btn-primary" id="keywords_filter_category_button">Applica</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center mx-0 my-3">
+    <div class="col-11">
+        <!--wordcloud-->
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="row graph-area border shadow-sm text-center">
+                    <div class="col-12">
+                        <div class="row">
+                            <h2 class="mt-2 mb-0 fw-bold fs-5">Wordcloud delle parole chiave</h2>
+                        </div>
+                        <div class="row">
+                            <div data="{{ keywords_infos }}" id="keywords_wordcloud"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--filtro-->
+        <div class="row mt-3">
+            <div class="col-12 text-end p-0 d-flex justify-content-end">
+                <button class="col-lg-2 col-12 analysis-button border shadow-sm p-2" type="button" data-bs-toggle="modal" data-bs-target="#keyword_filter_modal" id="keyword_filter_button">
+                    FILTRA CATEGORIE
+                </button>
+            </div>
+        </div>
+        <!--lista parole suddivise per categoria-->
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="row graph-area border shadow-sm">
+                    <div class="col-12" id="keywords_list_div">
+                        <div class="row">
+                            <h2 class="mt-2 mb-0 fw-bold text-center fs-5">Parole chiave</h2>
+                        </div>
+                        {% for cat_id, cat_name in attendances_categories_infos %}
+                        <div class="row">
+                            <h3 class="mt-3 mb-0 fw-bold text-center text-decoration-underline text-uppercase">{{ cat_name }}</h3>
+                        </div>
+                        <div class="row row-cols-auto flex-row justify-content-center flex-wrap m-3" id="keywords_list_cat{{ cat_id }}"></div>
+                        {% else %}
+                        <div class="row">
+                            <p class="mt-3 mb-0 text-secondary text-center fst-italic">Ancora nessuna parola chiave...</p>
+                        </div>
+                        {% endfor %}
+                        <hr class="mx-5 my-4" />
+                        <div class="row mb-4">
+                            <div class="col-12 d-flex justify-content-center">
+                                <button class="col-lg-2 analysis-button border border-primary shadow-sm pe-2" type="button" data-bs-toggle="modal" data-bs-target="#new_keyword_modal" id="new_keyword_button">
+                                    <span class="bi bi-plus text-white"></span>
+                                    <span class="ms-1">Nuova parola</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    
+            
+</script>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}
+Activities Log
+{% endblock %}
+
+{% block main %}
+<div class="row justify-content-center m-0 my-4">
+    <div class="col-10">
+        <div class="row">
+            <h2 class="p-0 mb-4 fw-bold">Log attivit&agrave; svolte</h2>
+        </div>
+        <div class="row">
+            <table class="table table-sm align-middle table-striped">
+                <thead>
+                    <tr>
+                        <th id="timestamp">Timestamp</th>
+                        <th id="user">Utente</th>
+                        <th id="activity">Attivit&agrave;</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white text-dark">
+                    {% for act in activities %}
+                    <tr>
+                        <td headers="timestamp">{{ act.activityDatetime }}</td>
+                        <td headers="user">{{ act.firstName }} {{ act.lastName }}</td>
+                        <td headers="activity">{{ act.activityDescription }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

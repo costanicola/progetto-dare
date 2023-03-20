@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}
+Analysis Result
+{% endblock %}
+
+{% block main %}
+<div class="modal fade" id="document_save_modal" tabindex="-1" aria-labelledby="document_save_title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border">
+            <form class="row justify-content-center" action="{{ url_for('confirm_document_save') }}" method="POST">
+                <div class="col-10 p-0">
+                    <div class="row mt-3">
+                        <div class="col-12 d-flex align-items-center">
+                            <span class="d-inline bi bi-box-arrow-down"></span>
+                            <p class="d-inline fw-bold ms-2 mb-0 fs-5" id="document_save_title">Salvataggio</p>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <p class="m-0">Confermi di voler salvare questa analisi?</p>
+                            <p class="m-0">Potrai consultarla nuovamente nell'<span class="fw-bold">archivio</span>.</p>
+                        </div>
+                    </div>
+                    <div class="row my-4">
+                        <div class="col-12 text-end">
+                            <button type="button" class="btn btn-outline-dark me-3" data-bs-dismiss="modal">Chiudi</button>
+                            <input type="submit" class="btn btn-primary" value="S&igrave;, salva" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center m-0">
+    <div class="col-10 my-4">
+        <div class="row justify-content-between">
+            <button class="analysis-button back_button col-lg-2 border shadow-sm p-0 mb-3" type="button" id="analysis_result_back">
+                <span class="bi bi-arrow-left-short"></span>
+                <span class="analysis-buttons-text ms-1">Torna indietro</span>
+            </button>
+            <button class="analysis-button col-lg-2 border border-primary shadow-sm p-0 mb-3" data-bs-toggle="modal" data-bs-target="#document_save_modal" id="save_analysis_button">
+                <span class="analysis-buttons-text fw-bold text-white">Salva analisi</span>
+                <span class="bi bi-check text-white"></span>
+            </button>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 mb-3 ps-lg-0 pe-lg-3">
+                <ul class="list-group">
+                    {% for p in paragraphs_info %}
+                    <li class="list-group-item border-0">
+                        <p class="document-p m-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Sentiment : {{ p.sentiment }} Intensit&agrave; : {{ p.intensity }}%">
+                            {{ p.text|e }}
+                        </p>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="box col-12 border rounded shadow-sm py-4">
+                        <div class="row text-center mb-2">
+                            <p class="analysis-buttons-text fw-bold fs-5 m-0">SENTIMENT ANALYSIS</p>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="document-analysis-result col-sm-8 col-10 text-center mt-2">
+                                <div class="row mt-1">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            {% if text_sentiment == "positivo" %}
+                                            <span class="bi bi-emoji-smile"></span>
+                                            {% elif text_sentiment == "neutrale" %}
+                                            <span class="bi bi-emoji-neutral"></span>
+                                            {% elif text_sentiment == "negativo" %}
+                                            <span class="bi bi-emoji-frown"></span>
+                                            {% endif %}
+                                        </div>
+                                        <div class="row">
+                                            <span class="fw-bold fs-5">{{ text_sentiment|upper }}</span>
+                                        </div>
+                                        <div class="row">
+                                            <span class="fst-italic mt-1">
+                                                valutazione precisa al <span class="fw-bold">{{ text_intensity }}%</span> e calcolata automaticamente sull'intero testo
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if text_emotion %}
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <hr class="my-4" />
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="row">
+                                                    <span class="fw-bold fs-5">{{ text_emotion|upper }}</span>
+                                                </div>
+                                                <div class="row">
+                                                    <span class="fst-italic mt-1">emozione umana rilevata</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box col-12 border rounded shadow-sm mt-3 pt-4 pb-3">
+                        <div class="row text-center mb-2">
+                            <p class="analysis-buttons-text fw-bold fs-5 m-0">PAROLE CHIAVE</p>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-12 px-2 mt-2">
+                                <ul class="d-flex flex-wrap p-0 m-0 justify-content-center">
+                                    {% for word in text_keywords %}
+                                    <li class="list-group-item border bg-secondary bg-opacity-10 mx-1 mb-2">
+                                        {{ word }}
+                                    </li>
+                                    {% else %}
+                                    <li class="list-group-item text-secondary border-0 fst-italic">Nessuna corrispondenza trovata...</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

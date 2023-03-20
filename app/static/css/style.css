@@ -1,0 +1,268 @@
+body {
+    background: /*linear-gradient(to right, #2D4772, #354661, #697485);*/linear-gradient(to right, #e6f7ff, #ccccff, #f2e6ff);
+}
+
+header {
+    background: white;
+}
+
+nav .bi {
+    font-size: 23px;
+}
+
+.home-box {
+    width: 190px;
+    height: 190px;
+    text-align: center;
+    padding: 0;
+    background: white;
+    font-size: 17px;
+}
+
+.home-box:hover, .documents-list>li:hover, #registration_link:hover {
+    background: #eff2f6;
+}
+
+.home-box>a {
+    color: black;
+}
+
+.bi {
+    font-size: 40px;
+    color: black;
+}
+
+.graph-area {
+    background: white;
+    border-radius: 6px;
+    font-size: 17px;
+}
+
+.analysis-button, .analysis-option {
+    background: white;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.analysis-button .bi, .analysis-option .bi {
+    font-size: 30px;
+    color: black;
+}
+
+.analysis-buttons-text {
+    font-size: 17px;
+    color: black;
+}
+
+#analyse_document_button, #save_analysis_button, #new_keyword_button, #login_button, #registration_button {
+    background: #0D6EFD;
+    color: white;
+    font-size: 17px;
+}
+
+#analyse_document_button:hover, #save_analysis_button:hover, #new_keyword_button:hover, #login_button:hover, #registration_button:hover {
+    background: #0026FF;
+}
+
+textarea, .file-area {
+    height: 480px !important;
+    border-radius: 4px;
+    background: white;
+    resize: none;
+}
+
+.file-area img {
+    height: 50px;
+    width: auto;
+}
+
+h1 {
+    font-size: 23px;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 21px;
+}
+
+h3 {
+    font-size: 19px;
+}
+
+.documents-list>li {
+    border-radius: 5px;
+}
+
+.documents-list span, .documents-list div {
+    font-size: 14px;
+    display: inline-block;
+}
+
+.documents-list div {
+    color: gray;
+}
+
+.box {
+    background: white;
+    font-size: 16px;
+    color: black;
+}
+
+.social-info-box {
+    background: white;
+    font-size: 17px;
+    color: black;
+    border-radius: 6px;
+}
+
+.social-info-box .bi {
+    font-size: 20px;
+}
+
+.post-box {
+    width: 275px;
+    background: white;
+    font-size: 15px;
+    border-radius: 10px;
+}
+
+.post-box:hover {
+    background: whitesmoke;
+}
+
+.post-box-text {
+    height: 45px;
+}
+
+.post-box-icon {
+    height: 20px;
+    width: 20px;
+}
+
+.comment-box {
+    border: 1px solid black;
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+    background: white;
+    color: black;
+}
+
+.comment-box .bi {
+    font-size: 20px;
+}
+
+.archive-box-number {
+    font-size: 24px;
+}
+
+.document-p {
+    font-size: 13px;
+    text-align: justify;
+}
+
+.document-analysis-result {
+    font-size: 15px;
+    background: white;
+}
+
+.copy-document .bi {
+    font-size: 21px;
+}
+
+.copy-document .bi:hover {
+    color: blue;
+}
+
+.table {
+    font-size: 15px;
+}
+
+.text-modified {
+    font-size: 13px;
+    font-style: italic;
+}
+
+.tooltip-inner {
+    background-color: #2f4fff;
+    font-size: 16px;
+}
+
+.tooltip.show {
+    opacity: 1 !important;
+}
+
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+    border-bottom-color: #2f4fff !important;
+}
+
+.tooltip.bs-tooltip-top .tooltip-arrow::before {
+    border-top-color: #2f4fff !important;
+}
+
+.tooltip.bs-tooltip-end .tooltip-arrow::before {
+    border-right-color: #2f4fff !important;
+}
+
+.tooltip.bs-tooltip-start .tooltip-arrow::before {
+    border-left-color: #2f4fff !important;
+}
+
+#darsena_piechart {
+    font-family: 'Bootstrap-icons';
+}
+
+.upper-advisor {
+    background: bisque;
+}
+
+.keyword-box {
+    width: 180px;
+    height: 180px;
+    text-align: center;
+    padding: 0;
+    background: white;
+    font-size: 16px;
+    border: 3px solid lightsteelblue;
+    border-radius: 50%;
+}
+
+.solid {
+    stroke: solid;
+}
+
+.dashed {
+    stroke-dasharray: 13,8;
+}
+
+.dotted {
+    stroke-dasharray: 3,3;
+}
+
+.add_keyword_similar_button_icon {
+    font-size: 24px;
+}
+
+.modify-comment-sentiment {
+    font-size: 14px;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding-bottom: 2px;
+    background: whitesmoke;
+}
+
+.modify-comment-sentiment:hover {
+    color: white;
+    background: black;
+}
+
+.success-message {
+    color: green;
+}
+
+.error-message {
+    color: red;
+}

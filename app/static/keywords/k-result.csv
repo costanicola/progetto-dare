@@ -1,0 +1,85 @@
+qualità dell'aria;post;neutrale;;;;;;;
+qualità dell'aria;post;neutrale;;;;;;;
+acqua;post;neutrale;;;;;;;
+mare;post;neutrale;;;;;;;
+qualità dell'aria;post;neutrale;;;;;;;
+acqua;commento;positivo;;;;;;;
+qualità dell'aria;post;neutrale;;;;;;;
+mare;commento;neutrale;;;;;;;
+qualità dell'aria;post;neutrale;;;;;;;
+mare;post;neutrale;;;;;;;
+acqua;commento;positivo;;;;Conteggio di neutrale;Etichette di colonna;;
+candiano;commento;neutrale;;;;Etichette di riga;neutrale;positivo;Totale complessivo
+sport;post;neutrale;;;;acqua;5;2;7
+qualità dell'aria;post;neutrale;;;;bicicletta;3;;3
+mare;post;neutrale;;;;candiano;2;1;3
+qualità dell'aria;post;neutrale;;;;mare;23;4;27
+verde;commento;positivo;;;;qualità dell'aria;20;5;25
+mare;post;neutrale;;;;salute;2;1;3
+qualità dell'aria;post;neutrale;;;;sport;6;2;8
+mare;post;neutrale;;;;verde;4;4;8
+qualità dell'aria;post;neutrale;;;;Totale complessivo;65;19;84
+bicicletta;commento;neutrale;;;;;;;
+qualità dell'aria;post;positivo;;;;;;;
+acqua;commento;neutrale;;;;Conteggio di post;Etichette di colonna;;
+mare;post;neutrale;;;;Etichette di riga;commento;post;Totale complessivo
+sport;post;neutrale;;;;acqua;4;3;7
+sport;post;neutrale;;;;bicicletta;2;1;3
+qualità dell'aria;post;neutrale;;;;candiano;1;2;3
+sport;post;neutrale;;;;mare;7;20;27
+acqua;commento;neutrale;;;;qualità dell'aria;;25;25
+qualità dell'aria;post;neutrale;;;;salute;3;;3
+mare;commento;neutrale;;;;sport;1;7;8
+qualità dell'aria;post;neutrale;;;;verde;4;4;8
+mare;post;neutrale;;;;Totale complessivo;22;62;84
+acqua;post;neutrale;;;;;;;
+mare;post;neutrale;;;;;;;
+mare;post;neutrale;;;;;;;
+mare;commento;neutrale;;;;;;;
+mare;commento;neutrale;;;;;;;
+mare;commento;neutrale;;;;;;;
+qualità dell'aria;post;neutrale;;;;;;;
+mare;post;neutrale;;;;;;;
+mare;post;neutrale;;;;;;;
+verde;post;neutrale;;;;;;;
+qualità dell'aria;post;neutrale;;;;;;;
+acqua;post;neutrale;;;;;;;
+mare;post;neutrale;;;;;;;
+bicicletta;post;neutrale;;;;;;;
+qualità dell'aria;post;positivo;;;;;;;
+mare;post;positivo;;;;;;;
+qualità dell'aria;post;neutrale;;;;;;;
+mare;post;neutrale;;;;;;;
+mare;post;neutrale;;;;;;;
+candiano;post;neutrale;;;;;;;
+sport;post;neutrale;;;;;;;
+salute;commento;neutrale;;;;;;;
+qualità dell'aria;post;neutrale;;;;;;;
+mare;post;neutrale;;;;;;;
+bicicletta;commento;neutrale;;;;;;;
+qualità dell'aria;post;positivo;;;;;;;
+mare;post;positivo;;;;;;;
+sport;post;positivo;;;;;;;
+verde;commento;positivo;;;;;;;
+sport;commento;positivo;;;;;;;
+qualità dell'aria;post;neutrale;;;;;;;
+mare;post;neutrale;;;;;;;
+mare;post;neutrale;;;;;;;
+qualità dell'aria;post;neutrale;;;;;;;
+qualità dell'aria;post;neutrale;;;;;;;
+mare;post;neutrale;;;;;;;
+verde;commento;neutrale;;;;;;;
+salute;commento;positivo;;;;;;;
+salute;commento;neutrale;;;;;;;
+qualità dell'aria;post;neutrale;;;;;;;
+sport;post;neutrale;;;;;;;
+qualità dell'aria;post;positivo;;;;;;;
+qualità dell'aria;post;neutrale;;;;;;;
+verde;post;positivo;;;;;;;
+qualità dell'aria;post;positivo;;;;;;;
+candiano;post;positivo;;;;;;;
+mare;commento;positivo;;;;;;;
+mare;commento;positivo;;;;;;;
+verde;post;neutrale;;;;;;;
+verde;post;neutrale;;;;;;;
+verde;commento;positivo;;;;;;;
